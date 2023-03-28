@@ -2,3 +2,7 @@ handgun bullets
 bullets ore
 bombs ore
 turret bullets
+pistol bullets
+rockets ore
+grenades ore
+acid bombs
