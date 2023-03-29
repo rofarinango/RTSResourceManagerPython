@@ -26,7 +26,7 @@ class ResourceManager:
                 if child not in self.nodes:
                     self.nodes[child] = Node(child)
                 self.graph.add_edge(parent, child)
-                self.nodes[child].dependencies.add(parent)
+                self.nodes[parent].dependencies.add(child)
 
     def print_graph(self):
         print("Resources graph:")
@@ -47,27 +47,19 @@ class ResourceManager:
             return
         self.nodes.pop(name)
         self.graph.remove_node(name)
+        #print(list(self.graph.nodes()))
         for child in list(self.graph.nodes()):
             if name in self.graph.successors(child):
                 self.graph.remove_edge(child, name)
                 self.nodes[child].dependencies.remove(name)
-            if not self.check_usable(child):
+            if name in self.nodes[child].dependencies:
                 self.nodes[child].usable = False
-
-    def check_usable(self, name):
-        node = self.nodes[name]
-        for parent in node.dependencies:
-            if parent not in self.nodes:
-                return False
-            if not self.nodes[parent].usable:
-                return False
-        return True
 
     def run(self):
         self.load_resources("resources.txt")
         while True:
-            nx.draw(self.graph, with_labels=True)
-            plt.show()
+            #nx.draw(self.graph, with_labels=True)
+            #plt.show()
             self.print_graph()
             self.print_usable_resources()
             command = input("Enter a node name to delete, or 'q' to quit: ")
@@ -79,3 +71,6 @@ class ResourceManager:
 # Create a new ResourceManager instance and run it
 rm = ResourceManager()
 rm.run()
+
+
+
