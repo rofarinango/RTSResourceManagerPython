@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-root = tk.Tk()
 # Define the Node class to represent each resource
 class Node:
     def __init__(self, name):
@@ -25,13 +24,13 @@ class ResourceManager:
     def load_resources(self, filename):
         with open(filename, 'r') as f:
             for line in f:
-                parent, child = line.strip().split()
-                if parent not in self.nodes:
-                    self.nodes[parent] = Node(parent)
-                if child not in self.nodes:
-                    self.nodes[child] = Node(child)
-                self.graph.add_edge(parent, child)
-                self.nodes[parent].dependencies.add(child)
+                start_node, end_node = line.strip().split()
+                if start_node not in self.nodes: # Avoid duplicate nodes from file
+                    self.nodes[start_node] = Node(start_node)
+                if end_node not in self.nodes:
+                    self.nodes[end_node] = Node(end_node)
+                self.graph.add_edge(start_node, end_node)
+                self.nodes[start_node].dependencies.add(end_node)
 
     def print_graph(self):
         print("Resources graph:")
@@ -59,8 +58,9 @@ class ResourceManager:
                 self.nodes[current_node].dependencies.remove(name)
             if name in self.nodes[current_node].dependencies:
                 self.nodes[current_node].usable = False
+        self.print_usable_resources()
 
-    def draw_graph(self):
+    def draw_graph(self, root):
         colors = []
         for node in self.graph.nodes():
             if self.nodes[node].usable:
@@ -76,45 +76,3 @@ class ResourceManager:
         self.canvas = FigureCanvasTkAgg(fig, master=root)
         self.canvas.draw()
         self.canvas.get_tk_widget().pack()
-
-    
-
-    def run(self):
-        self.load_resources("resources.txt")
-        while True:
-            
-            self.print_graph()
-            self.print_usable_resources()
-            command = input("Enter a node name to delete, or 'q' to quit: ")
-            if command == 'q':
-                break
-            else:
-                self.delete_node(command)
-                nx.draw(self.graph, with_labels=True)
-                plt.show()
-                
-# Create a new ResourceManager instance and run it
-rm = ResourceManager()
-rm.load_resources("resources.txt")
-
-# Delete a node and redraw the graph
-
-def delete_and_redraw():
-    name = entry.get()
-    rm.delete_node(name)
-    rm.draw_graph()
-
-# Add a label and an entry box for node deletion
-
-label = tk.Label(root, text="Enter a node name to delete:")
-label.pack()
-entry = tk.Entry(root)
-entry.pack()
-
-button = tk.Button(root, text="Delete", command=delete_and_redraw)
-button.pack()
-rm.draw_graph()
-root.mainloop()
-
-
-
