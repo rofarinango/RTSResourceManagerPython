@@ -76,3 +76,17 @@ class ResourceManager:
         self.canvas = FigureCanvasTkAgg(fig, master=root)
         self.canvas.draw()
         self.canvas.get_tk_widget().pack()
+
+    def add_node(self, name):
+        if name not in self.nodes:
+            self.nodes[name] = Node(name)
+            self.graph.add_node(name)
+        self.pos = None
+
+    def add_link(self, start_node, end_node):
+        if start_node not in self.nodes: # Avoid duplicate nodes from file
+            self.nodes[start_node] = Node(start_node)
+        if end_node not in self.nodes:
+            self.nodes[end_node] = Node(end_node)
+        self.graph.add_edge(start_node, end_node)
+        self.nodes[start_node].dependencies.add(end_node)
