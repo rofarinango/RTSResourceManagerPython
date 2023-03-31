@@ -8,7 +8,6 @@ def main():
     root = tk.Tk()
     resource_manager = ResourceManager()
     resource_manager.load_resources("src/resources.txt")
-    help(ResourceManager)
 
     # GUI creation
     gui = GUI(root, resource_manager)

@@ -1,6 +1,5 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # Define the Node class to represent each resource
