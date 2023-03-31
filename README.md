@@ -48,3 +48,6 @@ The control panel is located on the right side of the main window. It provides t
 "Start node" and "End node" input fields: Allow users to add a link between two resources by entering their names and clicking the "Add Link" button.
 "Add Link" button: Adds a link between two resources.
 "Delete" button: Deletes a resource from the graph.
+
+![image](https://user-images.githubusercontent.com/47066093/229018826-b551def5-d41b-46a3-ad21-81b532e4890c.png)
+
