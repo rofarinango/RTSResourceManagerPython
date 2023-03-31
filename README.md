@@ -1,5 +1,30 @@
 # Resource Manager Application
+
+Resource Manager for a Real Time Strategy (RTS) game. 
+
+
 The Resource Manager Application is a graphical user interface (GUI) program for managing resources and their dependencies. It allows users to create, delete, and link resources in a graph-like structure.
+
+The program manages a "directed graph" (a system of nodes and links between them going in one direction, much like web pages and their links). On startup, the program reads a file "resource.txt" (from the src directory) which describes resources and the resources they depend on. The file resource.txt could, for example, contain (exactly 4 lines):
+
+```
+handgun bullets
+bullets ore
+bombs ore
+turret bullets
+```
+
+The first line says that there is a link from a node called "handgun" to a node called 'bullet". This means for a handgun to be a useable, it relies on the resource bullets.
+
+# Requirements:
+
+The program work with any amount of nodes and any amount of links between them. To this end, the program represent nodes with a Node class, and the set of links for a single node using set container.
+The program display two items on the screen: (1) a current view of the graph. For any current node, if any of the nodes it relies on get deleted that node becomes unusable.
+
+A user should be allowed to delete a node and quit at any time.
+
+A user should be allowed to insert new nodes and new links.
+
 
 ## Installation
 To run the Resource Manager Application, you need to have Python 3 and the Tkinter library installed on your machine. If you don't have them installed, you can download them from the official websites:
