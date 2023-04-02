@@ -16,7 +16,7 @@ turret bullets
 
 The first line says that there is a link from a node called "handgun" to a node called 'bullet". This means for a handgun to be a useable, it relies on the resource bullets.
 
-# Requirements:
+## Requirements:
 
 The program work with any amount of nodes and any amount of links between them. To this end, the program represent nodes with a Node class, and the set of links for a single node using set container.
 The program display a current view of the graph. For any current node, if any of the nodes it relies on get deleted that node becomes unusable.
